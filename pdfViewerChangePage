@@ -1,0 +1,24 @@
+<html>
+<script>
+//this functions waits the component (pdfjs-viewer) truly loads and then use a button from the
+//iframe to change the page
+//Variables that should be change: ".pdfjs-viewer",".toolbarField.pageDown" and ".toolbarField.pageUp"
+function MudarPagina(PaginaPretendida) {
+  var tryToLoad = setInterval(function() {
+    jQuery(document.iframe).ready(function($) {
+      var ValorAtual = jQuery(".pdfjs-viewer").contents().find(".toolbarField.pageNumber").val();
+      if (ValorAtual <= PaginaPretendida) {
+        for (var i = ValorAtual; i < PaginaPretendida; i++) {
+          jQuery(".pdfjs-viewer").contents().find(".toolbarButton.pageDown").click();
+        }
+      } else {
+        for (var i = ValorAtual; i > PaginaPretendida; i--) {
+          jQuery(".pdfjs-viewer").contents().find(".toolbarButton.pageUp").click();
+        }
+      }
+    });
+    clearInterval(tryToLoad);
+  }, 100);
+}
+</script>
+</html>
